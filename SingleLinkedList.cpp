@@ -102,7 +102,7 @@ class SingleLinkedList{
             }cout << endl << "Size Of The linked List : " << len << endl ;
         }
         void removeAt(int index)  // O(n)
-        {
+        {   index++;
             if(len == 0){
                 throw invalid_argument("LinekedList Empty");
             }
@@ -118,11 +118,11 @@ class SingleLinkedList{
             else{
                 Node<T>* temp;
                 Node<T>* prv = head;
-                int x =1;
+                int x = 1;
                 len--;
                 while (x != index - 1 ) {
-                        prv = prv->next;
-                        x++;
+                    prv = prv->next;
+                    x++;
                 }  
                 temp = prv->next;
                 prv->next = temp->next;
@@ -152,8 +152,11 @@ class SingleLinkedList{
             }
             len--;
             Node<T>* Newitem = head->next;
-            delete head;
-            head = Newitem;
+            head->next = Newitem->next;
+            if(len == 0) {
+                tail = head;
+            }
+            delete Newitem;
         }
         bool isExist(T data) // O(n)
         {
@@ -220,13 +223,12 @@ class SingleLinkedList{
             if(len == 0 )
                 throw invalid_argument("LinkedList Empty");
             len=0;
-            Node<T>* current = head;
+            Node<T>* current = head->next;
             while (current != nullptr) {
                 Node<T>* temp = current;
                 current = current->next;
                 delete temp;
             }
-            head = nullptr;
         }
         void swap(int FirstItemindex, int Seconditemindex) {    //O(n)
                 if (FirstItemindex > len || FirstItemindex < 0) {

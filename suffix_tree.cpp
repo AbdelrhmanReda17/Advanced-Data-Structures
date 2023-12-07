@@ -68,34 +68,44 @@ public:
         }
         return min;
     }
-    // startSuffix -1
-    // banana$
-    // index 4 , i = 3
-    // i = 1
-    // index = 3
     void walkDown(SuffixNode* node , int index , int length) {
         if(node->startSuffix == -1){
             int min = getMinLength(node);
             bool found = true;
-            // BUG Here
-            for(int i = node->startEdge ; i <= min ; i++) {
+            for(int i = node->startEdge ; i < min ; i++) {
                 if(str[i] == str[index]) {
                     index++;
                 }else{
                     found = false;
-                    SuffixNode* newNode1 = SuffixNode::createNode(i, length - 1 );
-                    SuffixNode::addChild(newNode1, node);
+                    SuffixNode* newNode1 = SuffixNode::createNode(i, node->startSuffix );
+                    SuffixNode* newNode2 = SuffixNode::createNode(index, length - 1 );
+                    int x = 0;
+                    for(int j = 0 ; j < node->children.linkedListSize(); j++) {
+                        SuffixNode* temp = node->children.retrieveAt(j+1);
+                        SuffixNode::addChild(newNode1, temp);
+                        x++;
+                    }
+                    for(int j = 0 ; j < x; j++) {
+                        node->children.removeAtHead();
+                    }
+                    SuffixNode::addChild(node, newNode1);
+                    SuffixNode::addChild(node, newNode2);
+                    return;
                 }
             }
             if(found){
-                int FirstOccurrence = getFirstOccurrence(node ,  index + 1 );
+                int FirstOccurrence = getFirstOccurrence(node ,  index );
                 if (FirstOccurrence != -1) {
                     for(int i = 0 ; i < node -> children.linkedListSize(); i++) {
                         SuffixNode* walkDownNode = node->children.retrieveAt(i+1);
                         if(str[walkDownNode->startEdge] == str[index]){
-                            walkDown(walkDownNode , index + 1 , length);
+                            walkDown(walkDownNode , index  , length);
                         }
                     }
+                    return;
+                }else{
+                    SuffixNode* newNode = SuffixNode::createNode(index, length - 1);
+                    SuffixNode::addChild(node, newNode);
                     return;
                 }
             }
@@ -107,7 +117,7 @@ public:
                 i++;
                 continue;
             }else{
-                SuffixNode* newNode1 = SuffixNode::createNode(index, length - 1 );
+                SuffixNode* newNode1 = SuffixNode::createNode(index , length - 1 );
                 SuffixNode* newNode2 = SuffixNode::createNode(i, node->startSuffix);
                 SuffixNode::addChild(node, newNode1);
                 SuffixNode::addChild(node, newNode2);
@@ -116,19 +126,17 @@ public:
             }
         }
     }
-    // bana$
     void insertIntoSuffix(SuffixNode* node, char* str , int index, int length ) {
         int FirstOccurrence = getFirstOccurrence(node, index );
         if (FirstOccurrence == -1) {
             SuffixNode* newNode = SuffixNode::createNode(index, length - 1);
             SuffixNode::addChild(node, newNode);
-            // 3nodes => leafs
         }else{
             for(int i = 0 ; i < node -> children.linkedListSize(); i++) {
                 SuffixNode* walkDownNode = node->children.retrieveAt(i+1);
                 if(str[walkDownNode->startEdge] == str[index]){
                     walkDown(walkDownNode , index , length);
-                    // node a , 3 , 5
+                    break;
                 }
             }
         }
