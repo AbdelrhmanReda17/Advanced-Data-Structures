@@ -33,9 +33,15 @@ public:
         this->str = strdup(str);
         this->root = this->buildSuffixTree(this->str);
     }
-    void traverseSuffixes(SuffixNode* node) {
+
+    void traverseSuffix(SuffixNode* node, int identifier) {
         if (node->startSuffix != -1 && node->children.isEmpty()) {
-            cout << "Node: " << node->startEdge << " " << node->startSuffix << endl;
+            if (identifier == 1) {
+                cout << node->startSuffix << " ";
+            } 
+            else if (identifier == 2) {
+                cout << "Node: " << node->startEdge << " " << node->startSuffix << endl;
+            }
             return;
         }
         Node<SuffixNode*>* current = node->children.getHead(); 
@@ -44,22 +50,7 @@ public:
             if(temp == current->data && temp == nullptr){
                 continue;
             }
-            traverseSuffixes(temp);
-        }
-        current = current->next;
-    }
-    void traverseSuffix(SuffixNode* node) {
-        if (node->startSuffix != -1 && node->children.isEmpty()) {
-            cout << node->startSuffix << " ";
-            return;
-        }
-        Node<SuffixNode*>* current = node->children.getHead(); 
-        for(int i = 0; i < current->data->children.linkedListSize(); i++) {
-            SuffixNode* temp = current->data->children.retrieveAt(i+1);
-            if(temp == current->data && temp == nullptr){
-                continue;
-            }
-            traverseSuffix(temp);
+            traverseSuffix(temp,1);
         }
         current = current->next;
     }
@@ -175,11 +166,32 @@ public:
     SuffixNode* getRoot() {
         return root;
     }
+
+
+    void extendedSearch(SuffixNode* node, const char* pattern, int exactIndex, int min) {
+        int index = exactIndex + 1;
+        bool found = true;
+
+        for (int i = node->startEdge + 1; i < min; i++) {
+            if (pattern[index] == str[i]) {
+                index++;
+            } else {
+                found = false;
+                break;
+            }
+        }
+
+        if (found) {
+            SearchHandler(node, pattern, index);
+        }
+    }
+
+
     void SearchHandler(SuffixNode* node , const char* pattern , int exactIndex) {
         if(exactIndex == strlen(pattern)) {
             for(int i = 0 ; i < node->children.linkedListSize(); i++) {
                 SuffixNode* temp = node->children.retrieveAt(i+1);
-                traverseSuffix(temp);
+                traverseSuffix(temp,1);
             }
         }
         for (int j = 0; j < node->children.linkedListSize(); j++) {
@@ -189,19 +201,7 @@ public:
                 if(min - temp->startEdge == 1 ){ 
                     SearchHandler(temp, pattern, exactIndex + 1);
                 }else{
-                    int index = exactIndex + 1;
-                    bool found = true;
-                    for(int i = temp->startEdge + 1; i < min; i++) {
-                        if(pattern[index] == str[i]) {
-                            index++;
-                        }else{
-                            found = false;
-                            break;
-                        }
-                    }
-                    if(found) {
-                        SearchHandler(temp, pattern, index);
-                    }
+                    extendedSearch(temp, pattern, exactIndex, min);
                 }
             }
         }
@@ -215,19 +215,7 @@ public:
                 if(min - temp->startEdge == 1 ){ 
                     SearchHandler(temp, pattern, 1);
                 }else{
-                    int index = 1;
-                    bool found = true;
-                    for(int i = temp->startEdge + 1; i < min; i++) {
-                        if(pattern[index] == str[i]) {
-                            index++;
-                        }else{
-                            found = false;
-                            break;
-                        }
-                    }
-                    if(found) {
-                        SearchHandler(temp, pattern, index);
-                    }
+                    extendedSearch(temp,pattern,0,min);
                 }
             }
         }
