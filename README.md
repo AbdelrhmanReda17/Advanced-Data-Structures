@@ -26,5 +26,5 @@ This is a compact implementation of a Suffix Tree in C++, adhering to specific c
 The **main()** function in suffix_tree.cpp includes **10** test cases, each with at least 3 search patterns. Feel free to modify or add more test cases according to your needs.
 
 ## Contributors
-- This project is maintained by: [Abdelrhman Reda](https://github.com/AbdelrhmanReda17), [Mahmoud Adel](https://github.com/DarkenSoda), [Abdelrhman Atef](https://github.com/AbdoMan19) and [Yassin Tareek](https://github.com/YassinTarekHelmy) 
+- This project is maintained by: [Abdelrhman Reda](https://github.com/AbdelrhmanReda17), [Mahmoud Adel](https://github.com/DarkenSoda), [Abdelrhman Atef](https://github.com/AbdoMan19), [AbdelrhmanAdel](https://github.com/TheOnlyMonster) and [Yassin Tareek](https://github.com/YassinTarekHelmy) 
 - Feel free to contribute, report issues, or provide feedback
