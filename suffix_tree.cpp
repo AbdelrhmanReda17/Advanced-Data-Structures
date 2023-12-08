@@ -37,7 +37,7 @@ public:
         }
         this->root = this->buildSuffixTree(this->str);
     }
-    void traverseSuffix(SuffixNode* node, int identifier) {
+    void traverseSuffixes(SuffixNode* node, int identifier = 2) {
         if (node->startSuffix != -1 && node->children.isEmpty()) {
             if (identifier == 1) {
                 cout << node->startSuffix << " ";
@@ -53,7 +53,7 @@ public:
             if(temp == current->data && temp == nullptr){
                 continue;
             }
-            traverseSuffix(temp,identifier);
+            traverseSuffixes(temp,identifier);
         }
         current = current->next;
     }
@@ -182,7 +182,7 @@ public:
             patternHandler = true;
             for(int i = 0 ; i < node->children.linkedListSize(); i++) {
                 SuffixNode* temp = node->children.retrieveAt(i+1);
-                traverseSuffix(temp,1);
+                traverseSuffixes(temp,1);
             }
         }
         for (int j = 0; j < node->children.linkedListSize(); j++) {
@@ -218,7 +218,7 @@ public:
 
 int main() {
     SuffixTree st("bananabanaba");
-    // st.traverseSuffixes(st.getRoot());
+    st.traverseSuffixes(st.getRoot() , 2);
     st.Search("ba");
     return 0;
 }
