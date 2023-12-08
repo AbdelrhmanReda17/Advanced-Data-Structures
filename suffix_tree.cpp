@@ -28,12 +28,15 @@ class SuffixTree {
 private:
     SuffixNode* root;
     char* str;
+    bool patternHandler = false;
 public:
     SuffixTree(const char* str) {
         this->str = strdup(str);
+        if(this->str[strlen(this->str)-1] != '$'){
+            this->str = strcat(this->str,"$");
+        }
         this->root = this->buildSuffixTree(this->str);
     }
-
     void traverseSuffix(SuffixNode* node, int identifier) {
         if (node->startSuffix != -1 && node->children.isEmpty()) {
             if (identifier == 1) {
@@ -50,18 +53,9 @@ public:
             if(temp == current->data && temp == nullptr){
                 continue;
             }
-            traverseSuffix(temp,1);
+            traverseSuffix(temp,identifier);
         }
         current = current->next;
-    }
-    SuffixNode* findSuffixNode(SuffixNode* node , int key) {
-        for(int i = 0; i < node->children.linkedListSize(); i++) {
-            SuffixNode* temp = node->children.retrieveAt(i+1);
-            if(temp->startEdge == key){
-                return temp;
-            }
-        }
-        return nullptr;
     }
     int getMinLength(SuffixNode* node) {
         int min = INT16_MAX;
@@ -171,7 +165,6 @@ public:
     void extendedSearch(SuffixNode* node, const char* pattern, int exactIndex, int min) {
         int index = exactIndex + 1;
         bool found = true;
-
         for (int i = node->startEdge + 1; i < min; i++) {
             if (pattern[index] == str[i]) {
                 index++;
@@ -180,15 +173,13 @@ public:
                 break;
             }
         }
-
         if (found) {
             SearchHandler(node, pattern, index);
         }
     }
-
-
     void SearchHandler(SuffixNode* node , const char* pattern , int exactIndex) {
         if(exactIndex == strlen(pattern)) {
+            patternHandler = true;
             for(int i = 0 ; i < node->children.linkedListSize(); i++) {
                 SuffixNode* temp = node->children.retrieveAt(i+1);
                 traverseSuffix(temp,1);
@@ -219,12 +210,15 @@ public:
                 }
             }
         }
+        if(!patternHandler) {
+            cout << "Pattern not found";
+        }
     }
 };
 
 int main() {
-    SuffixTree st("bananabanaba$");
+    SuffixTree st("bananabanaba");
     // st.traverseSuffixes(st.getRoot());
-    st.Search("naba");
+    st.Search("ba");
     return 0;
 }
