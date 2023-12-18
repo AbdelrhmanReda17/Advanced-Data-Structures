@@ -15,11 +15,12 @@
 *.so
 *.dylib
 *.dll
-
+*.pb
 # Fortran module files
 *.mod
 *.smod
-
+.idea/
+/.idea/sonarlint
 # Compiled Static libraries
 *.lai
 *.la
@@ -30,3 +31,12 @@
 *.exe
 *.out
 *.app
+
+# Debug files
+*.dSYM/
+*.su
+*.pb
+.idea
+CMakeLists.txt
+cmake-build-debug
+.vscode
