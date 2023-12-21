@@ -3,10 +3,10 @@
 This is a compact implementation of a Suffix Tree in C++, adhering to specific constraints. The Suffix Tree is constructed according to the requirements outlined in the provided specifications. The implementation includes a Search operation for substrings.
 
 ## Folder Structure
-- `suffix_tree.cpp`: The main C++ source file containing the implementation of the Suffix Tree.
-- `suffixnode.cpp`: The implementation of the SuffixNode class.
-- `suffixnode.h`: The header file for the SuffixNode class.
-- `suffixtree.h`: The header file for the SuffixTree class.
+- `SuffixTree.cpp`: The main C++ source file containing the implementation of the Suffix Tree.
+- `SuffixNode.cpp`: The implementation of the SuffixNode class.
+- `SuffixNode.h`: The header file for the SuffixNode class.
+- `SuffixTree.h`: The header file for the SuffixTree class.
 ## Constraints
 
 - The implementation does not use any built-in functions except `<cstdlib>`, `<cstdio>`, `<cstring>`, and `<iostream>`.

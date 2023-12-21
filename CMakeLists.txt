@@ -14,4 +14,6 @@ add_executable(Advanced_Data_Structures
         "Suffix Tree/SuffixTree.cpp"
         "Utilities/SingleLinkedList/SingleLinkedListNode/SingleLinkedListNode.cpp"
         "Utilities/SingleLinkedList/SingleLinkedList.cpp"
-        "Main.cpp")
+        "Main.cpp"
+        "Dynamic Interval Tree/IntervalTree.cpp"
+        "Dynamic Interval Tree/IntervalNode/IntervalNode.cpp")

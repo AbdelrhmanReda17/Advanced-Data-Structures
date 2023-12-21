@@ -1,4 +1,5 @@
 #include "Suffix Tree/SuffixTree.h"
+#include "Dynamic Interval Tree/IntervalTree.h"
 void SuffixTreeCases(){
     SuffixTree t1("bananabanaba$");
     // t1.traverseSuffixes(t1.getRoot(), 2);
@@ -81,8 +82,21 @@ void SuffixTreeCases(){
     t10.Search("se"); // Prints: 6 3
     cout << endl;
 }
+
+void IntervalTreeCases(){
+    IntervalTree intervalTree;
+    intervalTree.InsertInterval(15,20);
+    intervalTree.InsertInterval(10,30);
+    intervalTree.InsertInterval(5,20);
+    intervalTree.InsertInterval(17,19);
+    intervalTree.InsertInterval(12,15);
+    intervalTree.InsertInterval(30,40);
+    intervalTree.Print();
+    intervalTree.SearchInterval(5,5);
+}
 int main()
 {
-    SuffixTreeCases();
+    //SuffixTreeCases();
+    IntervalTreeCases();
     return 0;
 }
