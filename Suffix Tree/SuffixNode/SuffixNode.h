@@ -1,6 +1,6 @@
 #ifndef SUFFIX_NODE_H
 #define SUFFIX_NODE_H
-#include "SingleLinkedList.cpp"
+#include "../SingleLinkedList/SingleLinkedList.cpp"
 
 struct SuffixNode
 {

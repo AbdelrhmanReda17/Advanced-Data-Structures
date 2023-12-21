@@ -1,6 +1,6 @@
 #ifndef SINGLE_LINKED_LIST_H
 #define SINGLE_LINKED_LIST_H
-#include "SingleLinkedListNode.cpp"
+#include "SingleLinkedListNode/SingleLinkedListNode.cpp"
 
 template <typename T>
 class SingleLinkedList
