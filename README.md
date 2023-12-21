@@ -4,7 +4,6 @@ This repository is contained to implementing and exploring various fundamental d
 - **Suffix Tree**
   - Insertion, and Search operation for substrings
   - Using SingleLinkedList as a base
-  - 
 - **Dynamic Interval Tree** 
   - Insertion, and search operations 
   - Using Binary Search tree as a base
@@ -23,7 +22,7 @@ This repository is contained to implementing and exploring various fundamental d
     ```bash
     cd Advanced-Data-Structures
     ```
-3. Open the project in your favorite IDE or text editor.
+3. Open the project in CLION IDE or text editor.
 4. Compile and run the project.
     ```gitexclude
     g++ Main.cpp -o Main
